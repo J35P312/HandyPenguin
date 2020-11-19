@@ -74,7 +74,7 @@ sample_template={
       "comment": "",
       "volume": "Volume",
       "concentration": "Concentration",
-      "sample_concentration":"SampleConcentration",
+      "concentration_sample":"SampleConcentration",
       "pool": "Pool",
       "rml_plate_name": "PlateName",
       "well_position_rml": "WellPosition",
@@ -120,7 +120,7 @@ for file in starlims_files:
 		sample_data[-1]["pool"]=name
 		sample_data[-1]["volume"]=volume
 		sample_data[-1]["concentration"]=concentration
-		sample_data[-1]["sample_concentration"]=sample_concentration_to_well[well]
+		sample_data[-1]["concentration_sample"]=sample_concentration_to_well[well]
 
 current_date = date.today()
 directory_path="analysis_{}_{}_{}".format(current_date.year,current_date.month,current_date.day)
