@@ -23,14 +23,12 @@ def retrieve_file_path(wd):
 			indexes.append(sheet.cell_value(i, 2))
 			index_ids.append(sheet.cell_value(i, 3))
 			batch_name=sheet.cell_value(i, 4)
-			volume=sheet.cell_value(i, 5)
-			concentration=sheet.cell_value(i, 6)
 	except:
 		f=open("{}/error.txt".format(wd),"w")
 		f.write("starlims_to_json.xls saknas, eller är felformaterad!")
 		quit()
 
-	return(starlims_files, concentration_files, indexes, index_ids,batch_name,volume,concentration)
+	return(starlims_files, concentration_files, indexes, index_ids,batch_name)
 
 def read_index_file(index_per_well,index_id_per_well,index_file_path,index_id,wd):
 	try:
@@ -72,8 +70,8 @@ sample_template={
       "application": "RMLP05R800",
       "data_analysis": "FLUFFY",
       "comment": "",
-      "volume": "Volume",
-      "concentration": "Concentration",
+      "volume": "200",
+      "concentration": "10",
       "concentration_sample":"SampleConcentration",
       "pool": "Pool",
       "rml_plate_name": "PlateName",
@@ -87,7 +85,7 @@ sample_template={
 
 
 wd=os.path.dirname(os.path.realpath(__file__))
-starlims_files, concentration_files, indexes, index_id, name, volume, concentration=retrieve_file_path(wd)
+starlims_files, concentration_files, indexes, index_id, name=retrieve_file_path(wd)
 
 print (indexes)
 index_per_well={}
@@ -118,8 +116,6 @@ for file in starlims_files:
 		sample_data[-1]["index_sequence"]=index_per_well[ well ]
 		sample_data[-1]["index"]=index_id_per_well[ well ]
 		sample_data[-1]["pool"]=name
-		sample_data[-1]["volume"]=volume
-		sample_data[-1]["concentration"]=concentration
 		sample_data[-1]["concentration_sample"]=sample_concentration_to_well[well]
 
 current_date = date.today()
