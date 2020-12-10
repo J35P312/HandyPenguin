@@ -68,18 +68,17 @@ main_template={
 sample_template={
       "name": "SampleName",
       "application": "RMLP05R800",
-      "data_analysis": "FLUFFY",
+      "data_analysis": "fluffy",
       "comment": "",
       "volume": "200",
       "concentration": "10",
       "concentration_sample":"SampleConcentration",
       "pool": "Pool",
-      "rml_plate_name": "PlateName",
-      "well_position_rml": "WellPosition",
+      "rml_plate_name": "",
+      "well_position_rml": "",
       "index": "Index",
       "index_number": "IndexNumber",
       "index_sequence": "IndexSequence",
-      "capture_kit": "cfDNA",
       "priority": "standard"
 }
 
@@ -109,14 +108,15 @@ for file in starlims_files:
 			continue
 		sample_data.append(copy.deepcopy(sample_template))
 		well=sheet.cell_value(i, 13)+str(int(sheet.cell_value(i, 14)))
+		well_out=sheet.cell_value(i, 13)+":"+str(int(sheet.cell_value(i, 14)))
+
 		sample_data[-1]["name"]=sheet.cell_value(i, 0)
-		sample_data[-1]["rml_plate_name"]=sheet.cell_value(i, 15)
-		sample_data[-1]["well_position_rml"]=well
-		sample_data[-1]["index_number"]=int(index_per_well[ well ].split(" ")[0].replace("UDI",""))
+		sample_data[-1]["comment"]=well_out
+		sample_data[-1]["index_number"]=str(index_per_well[ well ].split(" ")[0].replace("UDI",""))
 		sample_data[-1]["index_sequence"]=index_per_well[ well ]
 		sample_data[-1]["index"]=index_id_per_well[ well ]
 		sample_data[-1]["pool"]=name
-		sample_data[-1]["concentration_sample"]=sample_concentration_to_well[well]
+		sample_data[-1]["concentration_sample"]=str(sample_concentration_to_well[well])
 
 current_date = date.today()
 directory_path="analysis_{}_{}_{}".format(current_date.year,current_date.month,current_date.day)
