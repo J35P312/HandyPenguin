@@ -18,9 +18,9 @@ def retrieve_file_path(wd):
 		index_ids=[]
 		for i in range(1,sheet.nrows):
 			#print(sheet.cell_value(i, 2))
-			starlims_files.append(sheet.cell_value(i, 0))
-			concentration_files.append(sheet.cell_value(i, 1))
-			indexes.append(sheet.cell_value(i, 2))
+			starlims_files.append(sheet.cell_value(i, 0).strip() )
+			concentration_files.append(sheet.cell_value(i, 1).strip() )
+			indexes.append(sheet.cell_value(i, 2).strip() )
 			index_ids.append(sheet.cell_value(i, 3))
 			batch_name=sheet.cell_value(i, 4)
 	except:
