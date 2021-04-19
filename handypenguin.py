@@ -22,7 +22,12 @@ def retrieve_file_path(wd):
 			concentration_files.append(sheet.cell_value(i, 1).strip() )
 			indexes.append(sheet.cell_value(i, 2).strip() )
 			index_ids.append(sheet.cell_value(i, 3))
-			batch_name=sheet.cell_value(i, 4)
+			try:
+				batch_name=str(int(sheet.cell_value(i, 4)))
+			except:
+				print("err")
+				batch_name=sheet.cell_value(i, 4)
+			
 	except:
 		f=open("{}/error.txt".format(wd),"w")
 		f.write("starlims_to_json.xls saknas, eller är felformaterad!")
@@ -86,6 +91,8 @@ sample_template={
 wd=os.path.dirname(os.path.realpath(__file__))
 starlims_files, concentration_files, indexes, index_id, name=retrieve_file_path(wd)
 
+out_file_prefix=starlims_files[0].split("_")[0]
+
 print (indexes)
 index_per_well={}
 index_id_per_well={}
@@ -133,8 +140,8 @@ for file in concentration_files:
 shutil.move("{}/starlims_to_json.xls".format(wd), directory_path)
 
 
-main_template["name"]=name
+main_template["name"]=str(name)
 main_template["samples"]=sample_data
-f=open("nipt_rml_{}_{}_{}.json".format(current_date.year,current_date.month,current_date.day),"w")
-f.write(json.dumps(main_template)) 
+f=open("{}_nipt_rml.json".format(out_file_prefix),"w")
+f.write(json.dumps(main_template,indent=4)) 
 f.close()
