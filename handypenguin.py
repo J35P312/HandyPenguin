@@ -54,7 +54,7 @@ def read_concentration_file(sample_concentration_to_well,concentration_file_path
 	sheet = wb.sheet_by_index(0)
 	rows=["A","B","C","D","E","F","G","H"]
 	row=0
-	for i in range(13,21):
+	for i in range(12,20):
 		for j in range(1,13):
 			sample_concentration_to_well[rows[row]+str(j)]=sheet.cell_value(i, j)
 			
@@ -91,7 +91,7 @@ sample_template={
 wd=os.path.dirname(os.path.realpath(__file__))
 starlims_files, concentration_files, indexes, index_id, name=retrieve_file_path(wd)
 
-out_file_prefix=starlims_files[0].split("_")[0]
+out_file_prefix=starlims_files[0].split("_")[0].split(" ")[0]
 
 print (indexes)
 index_per_well={}
