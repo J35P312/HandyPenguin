@@ -45,6 +45,7 @@ def read_index_file(index_per_well,index_id_per_well,index_file_path,index_id,wd
 		f=open("{}/error.txt".format(wd),"w")
 		f.write("Kunde ej läsa index filen:{}".format(index_file_path))
 		quit()
+
 	return(index_per_well,index_id_per_well)
 
 
@@ -102,8 +103,13 @@ for index_file_path in indexes:
 	i+=1
 
 sample_concentration_to_well={}
-for concentration_file_path in concentration_files:
-	sample_concentration_to_well=read_concentration_file(sample_concentration_to_well,concentration_file_path,wd)
+try:
+	for concentration_file_path in concentration_files:
+		sample_concentration_to_well=read_concentration_file(sample_concentration_to_well,concentration_file_path,wd)
+except:
+	f=open("{}/error.txt".format(wd),"w")
+	f.write("Kunde ej läsa koncentration-filen:{}".format(index_file_path))	
+	quit()
 
 sample_data=[]
 for file in starlims_files:
@@ -126,7 +132,7 @@ for file in starlims_files:
 		sample_data[-1]["concentration_sample"]=str(sample_concentration_to_well[well])
 
 current_date = date.today()
-directory_path="analysis_{}_{}_{}".format(current_date.year,current_date.month,current_date.day)
+directory_path="".format(out_file_prefix)
 try:
 	os.mkdir(directory_path)
 
@@ -137,8 +143,6 @@ for file in starlims_files:
 	shutil.move(file, directory_path)
 for file in concentration_files:	
 	shutil.move(file, directory_path)
-shutil.move("{}/starlims_to_json.xls".format(wd), directory_path)
-
 
 main_template["name"]=str(name)
 main_template["samples"]=sample_data
