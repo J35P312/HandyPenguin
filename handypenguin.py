@@ -108,7 +108,7 @@ try:
 		sample_concentration_to_well=read_concentration_file(sample_concentration_to_well,concentration_file_path,wd)
 except:
 	f=open("{}/error.txt".format(wd),"w")
-	f.write("Kunde ej läsa koncentration-filen:{}".format(index_file_path))	
+	f.write("Kunde ej läsa koncentration-filen:{}".format(concentration_file_path))	
 	quit()
 
 sample_data=[]
@@ -132,7 +132,7 @@ for file in starlims_files:
 		sample_data[-1]["concentration_sample"]=str(sample_concentration_to_well[well])
 
 current_date = date.today()
-directory_path="".format(out_file_prefix)
+directory_path=out_file_prefix
 try:
 	os.mkdir(directory_path)
 
