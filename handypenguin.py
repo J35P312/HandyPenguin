@@ -132,7 +132,7 @@ for file in starlims_files:
 		sample_data[-1]["concentration_sample"]=str(sample_concentration_to_well[well])
 
 current_date = date.today()
-directory_path=out_file_prefix
+directory_path=out_file_prefix+"_JSON"
 try:
 	os.mkdir(directory_path)
 
