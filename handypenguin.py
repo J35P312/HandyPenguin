@@ -144,8 +144,10 @@ for file in starlims_files:
 for file in concentration_files:	
 	shutil.move(file, directory_path)
 
+shutil.move( "{}/starlims_to_json.xls".format(wd) , directory_path)
+
 main_template["name"]=str(name)
 main_template["samples"]=sample_data
-f=open("{}_nipt_rml.json".format(out_file_prefix),"w")
+f=open("{}/{}_nipt_rml.json".format(directory_path,out_file_prefix),"w")
 f.write(json.dumps(main_template,indent=4)) 
 f.close()
