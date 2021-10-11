@@ -85,7 +85,7 @@ sample_template={
       "index": "Index",
       "index_number": "IndexNumber",
       "index_sequence": "IndexSequence",
-      "priority": "standard"
+      "priority": "priority"
 }
 
 
